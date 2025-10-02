@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PennyWise.io</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../static/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <a href="/" class="logo">
+            <span class="logo-text">PennyWise.io</span>
+        </a>
+        <nav class="sidebar-nav">
+            <a href="#" data-target="dashboard" class="active"><i class="fas fa-home"></i><span>Dashboard</span></a>
+            <a href="#" data-target="add-income"><i class="fas fa-dollar-sign"></i><span>Add Income</span></a>
+            <a href="#" data-target="add-expense"><i class="fas fa-wallet"></i><span>Add Expense</span></a>
+            <a href="#" data-target="quick-withdraw"><i class="fas fa-arrow-circle-left"></i><span>Quick
+                    Withdraw</span></a>
+            <a href="#" data-target="transactions"><i class="fas fa-list"></i><span>View Transactions</span></a>
+            <a href="#" data-target="reports"><i class="fas fa-chart-pie"></i><span>Reports / Analytics</span></a>
+            <a href="#" data-target="settings"><i class="fas fa-cog"></i><span>Settings / Profile</span></a>
+        </nav>
+    </aside>
+
+
+    <main class="main-content">
+        <div class="showError" id="showError" style="margin-top: 10px; display: none;">
+            <!-- Error messages will be dynamically added here -->
+        </div>
+        <section id="dashboard" class="section active">
+            <div class="section-header">
+                <h2>Dashboard</h2>
+                <div class="dashboard-greeting">
+                    Hello, {{username}}<br>
+                    Here's a quick overview of your finances.
+                </div>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Credits</h3>
+                        <p class="stat-value" id="creditValue">{{currency}}</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-minus-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Total Expenses</h3>
+                        <p class="stat-value" id="expenseValue">{{currency}}</p>
+                    </div>
+                </div>
+                <div class="stat-card balance">
+                    <div class="stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Balance</h3>
+                        <p class="stat-value" id="balanceValue">{{currency}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="transactions-table-container">
+                <h3>Recent Transactions</h3>
+                <div class="table-wrapper">
+                    <table class="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Source</th>
+                                <th>Note</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- Sample data for trial -->
+                            <!-- <tr>
+                                <td>TXN001</td>
+                                <td class="amount-credit">$2,500.00</td>
+                                <td class="amount-type">Credit</td>
+                                <td>Salary</td>
+                                <td>Monthly salary payment</td>
+                                <td>2024-01-15</td>
+                            </tr>
+                            <tr>
+                                <td>TXN002</td>
+                                <td class="amount-expense">$150.00</td>
+                                <td class="amount-type">Debit</td>
+                                <td>Food</td>
+                                <td>Grocery shopping</td>
+                                <td>2024-01-14</td>
+                            </tr>
+                            <tr>
+                                <td>TXN003</td>
+                                <td class="amount-expense">$50.00</td>
+                                <td class="amount-type">Debit</td>
+                                <td>Transportation</td>
+                                <td>Fuel expenses</td>
+                                <td>2024-01-13</td>
+                            </tr>
+                            <tr>
+                                <td>TXN004</td>
+                                <td class="amount-credit">$100.00</td>
+                                <td class="amount-type">Debit</td>
+                                <td>Gift Cards</td>
+                                <td>Birthday gift from friend</td>
+                                <td>2024-01-12</td>
+                            </tr>
+                            <tr>
+                                <td>TXN005</td>
+                                <td class="amount-expense">$75.00</td>
+                                <td class="amount-type">Credit</td>
+                                <td>Entertainment</td>
+                                <td>Movie tickets and dinner</td>
+                                <td>2024-01-11</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="view-more-container">
+                    <button class="view-more-btn" onclick="showTransactionsSection()">View More</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="add-income" class="section">
+            <div class="section-header">
+                <h2>Add Credit</h2>
+            </div>
+            <div class="form-container">
+                <div class="form-left">
+                    <h3>Add Credit</h3>
+                    <form class="credit-form">
+                        <div class="form-group">
+                            <label for="credit-amount">Amount</label>
+                            <input type="number" id="credit-amount" name="amount" placeholder="Enter amount" step="0.01"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit-source">Source</label>
+                            <select id="credit-source" name="source" required>
+                                <option value="" disabled selected>Select source</option>
+                                <option value="Salary">Salary</option>
+                                <option value="Gift Cards">Gift Cards</option>
+                                <option value="Lottery">Lottery</option>
+                                <option value="Friend">Friend</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit-note">Note</label>
+                            <textarea id="credit-note" name="note" maxlength="255"
+                                placeholder="Enter note (max 255 characters)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="credit-date">Date</label>
+                            <input type="date" id="credit-date" name="date" required>
+                        </div>
+                        <button type="submit" class="form-button">Add Credit</button>
+                    </form>
+                </div>
+                <div class="form-right">
+                    <h3>Set Goals</h3>
+                    <form class="goals-form">
+                        <div class="form-group">
+                            <label for="goal-amount">Amount</label>
+                            <input type="number" id="goal-amount" name="amount" placeholder="Enter amount" step="0.01"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal-minAmount">Minimum Amount</label>
+                            <input type="number" id="goal-minAmount" name="minAmount"
+                                placeholder="Enter min amount your account must hold" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal-saved-for">Saved For</label>
+                            <select id="goal-saved-for" name="saved_for" required>
+                                <option value="" disabled selected>Select purpose</option>
+                                <option value="buy_something">To Buy Something</option>
+                                <option value="travel_vacations">Travel / Vacations</option>
+                                <option value="emergency">Emergency</option>
+                                <option value="savings">Savings</option>
+                                <option value="big_purchase">Big Purchase</option>
+                                <option value="others">Others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal-note">Note</label>
+                            <textarea id="goal-note" name="note" maxlength="255"
+                                placeholder="Enter note (max 255 characters)" required></textarea>
+                        </div>
+                        <button type="submit" class="form-button">Set Goal</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="add-expense" class="section">
+            <div class="section-header">
+                <h2>Add Expense</h2>
+            </div>
+            <!-- Add this after <div class="section-header"> and before <div class="single-form-container"> -->
+            <div class="expense-categories disabled" id="Food">
+                <div class="expense-card">
+                    <div class="expense-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Food</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="foodAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="foodSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span class="foodRemaining">{{currency}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Transportation">
+                    <div class="expense-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Transportation</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="transportationAlloted">{{currency}}</span>
+                            </p>
+                            <p class="expense-spent">Spent: <span class="transportationSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span
+                                    class="transportationRemaining">{{currency}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Entertainment">
+                    <div class="expense-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Entertainment</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="entertainmentAlloted">{{currency}}</span>
+                            </p>
+                            <p class="expense-spent">Spent: <span class="entertainmentSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span
+                                    class="entertainmentRemaining">{{currency}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Shopping">
+                    <div class="expense-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Shopping</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="shoppingAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="shoppingSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span class="shoppingRemaining">{{currency}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Bills">
+                    <div class="expense-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Bills</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="billsAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="billsSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span class="billsRemaining">{{currency}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Healthcare">
+                    <div class="expense-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Healthcare</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="healthcareAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="healthcareSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span
+                                    class="healthcareRemaining">{{currency}}</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Education">
+                    <div class="expense-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Education</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="educationAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="educationSpent">{{currency}}</span></p>
+                            <p class="expense-remaining">Remaining: <span class="educationRemaining">{{currency}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expense-card disabled" id="Travel">
+                    <div class="expense-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="expense-content">
+                        <h3>Travel</h3>
+                        <div class="expense-details">
+                            <p class="expense-alloted">Alloted: <span class="travelAlloted">{{currency}}</span></p>
+                            <p class="expense-spent">Spent: <span class="travelSpent">{{currency}}0</span></p>
+                            <p class="expense-remaining">Remaining: <span class="travelRemaining">{{currency}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="single-form-container">
+                <div class="single-form">
+                    <h3>Add Expense</h3>
+                    <form class="expense-form">
+                        <div class="form-group">
+                            <label for="expense-amount">Allot Amount</label>
+                            <input type="number" id="expense-amount" name="amount" placeholder="Enter amount"
+                                step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-source">Expense For</label>
+                            <select id="expense-source" name="source" required>
+                                <option value="" disabled selected>Select source</option>
+                                <option value="Food">Food</option>
+                                <option value="Transportation">Transportation</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Travel">Travel</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-note">Note</label>
+                            <textarea id="expense-note" name="note" maxlength="255"
+                                placeholder="Enter note (max 255 characters)"></textarea>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="budget-control" class="budget-checkbox">
+                                <label for="budget-control" class="checkbox-label">
+                                    <span class="checkbox-icon"><i class="fas fa-check"></i></span>
+                                    <span class="checkbox-text">
+                                        <span class="checkbox-title">Enable Budget Protection</span>
+                                        <span class="checkbox-description">Block transactions that exceed my allocated
+                                            budget for this category</span>
+                                    </span>
+                                </label>
+                                <div class="budget-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>This helps you stay within your monthly spending limits</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group min-deposit-group" style="display: none;">
+                            <label for="min-deposit-amount">Allot max withdraw Amount</label>
+                            <input type="number" id="min-deposit-amount" name="min-deposit-amount"
+                                placeholder="Enter amount" step="0.01" min="0">
+                        </div>
+                        <button type="submit" class="form-button">Add Expense</button>
+                    </form>
+                </div>
+            </div>
+            <div class="expense-note">
+                <div class="note-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="note-content">
+                    <h4>Important Information</h4>
+                    <ul>
+                        <li><strong>Monthly Tracking:</strong> All expenses entered will be tracked from now until the
+                            end of this month. Budget allocations reset monthly.</li>
+                        <li><strong>Real-time Updates:</strong> Category spending will update automatically when you add
+                            new expenses.</li>
+                        <li><strong>Budget Alerts:</strong> You'll receive notifications when you're exceeding your
+                            allocated budget for any category.</li>
+                        <li><strong>Tip:</strong> Set realistic budgets based on your monthly income and prioritize
+                            essential categories like Bills and Healthcare.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section" id="quick-withdraw">
+            <div class="section-header">
+                <h2>Quick Withdraw</h2>
+            </div>
+            <div class="single-form-container">
+                <form class="single-form withdraw-form">
+                    <h3 style="margin-bottom: -5px;">Quick Withdraw</h3>
+                    <div class="form-group">
+                        <label for="withdraw-amount">Amount</label>
+                        <input type="number" id="withdraw-amount" step="0.01" placeholder="Enter amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdraw-source">Expense From</label>
+                        <select id="withdraw-source" required>
+                            <option value="" disabled selected>Select source</option>
+                            <option value="Food">Food</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Travel">Travel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="withdraw-note">Note</label>
+                        <textarea id="withdraw-note" placeholder="Enter a note (optional)" maxlength="255"></textarea>
+                    </div>
+                    <button type="submit" class="form-button">Withdraw</button>
+                </form>
+            </div>
+        </div>
+
+
+        <section id="transactions" class="section">
+            <div class="section-header">
+                <h2>View Transactions</h2>
+            </div>
+        </section>
+
+        <section id="reports" class="section">
+            <div class="section-header">
+                <h2>Reports / Analytics</h2>
+            </div>
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <p style="font-size: 1.3rem; font-weight: 500;">🛠️ Oops! This part of the site is still cooking. Come back soon to see what's brewing!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section with all forms pre-rendered but disabled -->
+        <section id="settings" class="section">
+            <div class="section-header">
+                <h2>Settings / Profile</h2>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+
+            <!-- Settings Cards -->
+            <div class="settings-cards">
+                <div class="settings-card" id="profile-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Profile</h3>
+                        <p>View your personal information and account details.</p>
+                    </div>
+                </div>
+                <div class="settings-card" id="update-profile-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Update Profile</h3>
+                        <p>Edit your personal information such as name, username, email, and currency.</p>
+                    </div>
+                </div>
+                <div class="settings-card" id="settings-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Settings</h3>
+                        <p>Customize your experience with theme and UX options.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Information Display (Initially Disabled) -->
+            <div class="profile-info-display disabled" id="profile-info-display">
+                <div class="profile-header">
+                    <h3>Profile Information</h3>
+                    <button class="close-profile-btn" onclick="closeProfileInfo()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="profile-content">
+                    <div class="profile-item">
+                        <label>User ID:</label>
+                        <span class="profile-value" id="profile-user-id">#---</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Full Name:</label>
+                        <span class="profile-value" id="profile-full-name">Loading...</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Username:</label>
+                        <span class="profile-value" id="profile-username">Loading...</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Mobile Number:</label>
+                        <span class="profile-value" id="profile-mobile">Loading...</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Email:</label>
+                        <span class="profile-value" id="profile-email">Loading...</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Currency:</label>
+                        <span class="profile-value" id="profile-currency">Loading...</span>
+                    </div>
+                    <div class="profile-item">
+                        <label>Account Created:</label>
+                        <span class="profile-value" id="profile-created-date">Loading...</span>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="btn-secondary" onclick="closeProfileInfo()">
+                        <i class="fas fa-arrow-left"></i> Back to Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Update Profile Form (Initially Disabled) -->
+            <div class="update-profile-form disabled" id="update-profile-form">
+                <div class="form-header" style="margin-left: -20px;">
+                    <h3>Update Profile</h3>
+                    <button class="close-form-btn" onclick="closeUpdateProfileForm()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="updateProfileForm" class="profile-form">
+                    <div class="form-group">
+                        <label for="update-fullName">Full Name:</label>
+                        <input type="text" id="update-fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-username">Username:</label>
+                        <input type="text" id="update-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-email">Email:</label>
+                        <input type="email" id="update-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="update-currency">Currency:</label>
+                        <select id="update-currency" name="currency" required>
+                            <option value="INR">INR (₹)</option>
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="AUD">AUD (A$)</option>
+                            <option value="CAD">CAD (C$)</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="closeUpdateProfileForm()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Settings Form (Initially Disabled) -->
+            <div class="settings-form disabled" id="settings-form">
+                <div class="form-header" style="margin-left: -20px;">
+                    <h3>Settings</h3>
+                    <button class="close-form-btn" onclick="closeSettingsForm()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="settingsForm" class="settings-form-content">
+                    <div class="settings-group">
+                        <label class="toggle-label">
+                            <span>Dark Mode</span>
+                            <input type="checkbox" id="theme-toggle" class="theme-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-group">
+                        <label class="toggle-label">
+                            <span>Notifications</span>
+                            <input type="checkbox" id="notification-toggle" class="notification-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-group">
+                        <label class="toggle-label">
+                            <span>Compact View</span>
+                            <input type="checkbox" id="compact-toggle" class="compact-toggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" style="margin-left: -20px;">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="closeSettingsForm()">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Loading Indicator (Initially Disabled) -->
+            <div class="loading-indicator disabled" id="loading-indicator">
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <span>Loading profile information...</span>
+            </div>
+
+            <!-- Success Message (Initially Disabled) -->
+            <div class="success-message disabled" id="success-message">
+                <i class="fas fa-check-circle"></i>
+                <span id="success-text">Success message will appear here</span>
+            </div>
+
+            <!-- Error Message (Initially Disabled) -->
+            <div class="error-message disabled" id="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <span id="error-text">Error message will appear here</span>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Navigation
+        document.querySelectorAll('.sidebar-nav a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Remove active from all links
+                document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+                // Show selected section using data-target
+                const sectionId = this.getAttribute('data-target');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // View More button functionality
+        function showTransactionsSection() {
+            // Remove active from all navigation links
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+
+            // Add active to transactions link
+            document.querySelector('.sidebar-nav a[data-target="transactions"]').classList.add('active');
+
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
+
+            // Show transactions section
+            document.getElementById('transactions').classList.add('active');
+        }
+    </script>
+    <script src="../static/home.js"></script>
+    <script src="../static/dashboard.js"></script>
+    <script src="../static/transaction.js"></script>
+    <script src="../static/settings.js"></script>
+</body>
+
+</html>

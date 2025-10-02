@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PennyWise.io</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+    <link rel="stylesheet" href="../static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="./main.html" class="logo">
+                <span class="logo-text">PennyWise.io</span>
+            </a>
+            <div class="nav-right">
+                <a href="/login" class="cta-button secondary">Login</a>
+                <a href="/register" class="cta-button primary">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <button id="scrollToTop" class="scroll-to-top" onclick="window.scrollTo(0, 0)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <section class="section" id="home">
+        <div class="container hero">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">Take Control of Your Finances</h1>
+                <p class="hero-subtitle">Track, budget, and save with our intuitive expense tracker. Simplify your financial journey today.</p>
+                <div class="hero-actions">
+                    <a href="/login" class="cta-button primary">Get Started</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-cards">
+                    <div class="card card-1">
+                        <div class="card-icon">💸</div>
+                        <p class="card-text">Track Expenses</p>
+                    </div>
+                    <div class="card card-2">
+                        <div class="card-icon">📊</div>
+                        <p class="card-text">Analyze Spending</p>
+                    </div>
+                    <div class="card card-3">
+                        <div class="card-icon">🎯</div>
+                        <p class="card-text">Set Budgets</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Us?</h2>
+                <p>Discover the features that make managing your finances effortless and insightful.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💰</div>
+                    <h3>Track Your Spending</h3>
+                    <p>Easily log and categorize expenses to understand your spending habits.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>Set Budgets</h3>
+                    <p>Create monthly budgets and receive alerts to stay on track.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📉</div>
+                    <h3>Visual Insights</h3>
+                    <p>View detailed charts and reports for smarter financial decisions.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Track Anytime, Anywhere</h3>
+                    <p>Whether you're at home or on the go, manage your expenses easily from your phone, tablet, or desktop.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Security & Privacy Assurance</h3>
+                    <p>Your data stays private and is never shared with third parties.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📤</div>
+                    <h3>Export Reports</h3>
+                    <p>Download your expense reports as CSV or PDF anytime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Answers to common questions about using Expense Tracker.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item fade-in">
+                    <h3 class="faq-question">Is it free to use?</h3>
+                    <p class="faq-answer">Yes, our core features are completely free.</p>
+                </div>
+                <div class="faq-item fade-in">
+                    <h3 class="faq-question">Do I need to connect my bank account?</h3>
+                    <p class="faq-answer">No, you can manually enter all expenses.</p>
+                </div>
+                <div class="faq-item fade-in">
+                    <h3 class="faq-question">Can I export my data?</h3>
+                    <p class="faq-answer">Yes, you can export reports as CSV.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>About This Project</h2>
+                <p>Learn about the story behind Expense Tracker.</p>
+            </div>
+            <div class="about-content fade-in">
+                <p class="about-text">This Expense Tracker was built using Flask, SQLite, HTML, CSS, and JavaScript as part of a full-stack learning journey. The goal is to empower users with simple tools to take control of their finances.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <p>© 2025 Expense Tracker. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="/about" class="footer-link">About</a>
+                <a href="/contact" class="footer-link">Contact</a>
+                <a href="/privacy" class="footer-link">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollToTop = document.getElementById('scrollToTop');
+            if (window.pageYOffset > 300) {
+                scrollToTop.classList.add('show');
+            } else {
+                scrollToTop.classList.remove('show');
+            }
+        });
+    </script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PennyWise.io</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="../static/loginNregis.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <a href="/" class="logo">
+                <span class="logo-text">PennyWise.io</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="showError" id="showError" style="margin-top: 10px; display: none;">
+        <!-- Error messages will be dynamically added here -->
+    </div>
+
+    <section id="home" class="section">
+
+        <div class="container">
+            <div class="section-header">
+                <h2>Log In</h2>
+                <p>Log in to your account to resume with your expense tracking.</p>
+            </div>
+            <div id="registerForm" class="register-form fade-in">
+                <form name="register" method="post">
+                    <div class="form-group">
+                        <label for="usernameoremail">Username or Email</label>
+                        <input type="text" id="username" name="usernameOrEmail" placeholder="Enter your username or email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                    </div>
+                    <div class="form-submit">
+                        <button type="button" class="cta-button primary sub-register"  id="loginSubmit">Log In</button>
+                    </div>
+                    <div class="social-login">
+                        <p class="social-text">Or log-in with</p>
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google-btn">
+                                <svg width="18" height="18" viewBox="0 0 18 18">
+                                    <path fill="#4285F4"
+                                        d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" />
+                                    <path fill="#34A853"
+                                        d="M8.98 16c2.16 0 3.97-.72 5.3-1.94l-2.6-2.04a4.8 4.8 0 0 1-2.7.75c-2.09 0-3.86-1.4-4.49-3.29H1.96v2.09A8 8 0 0 0 8.98 16z" />
+                                    <path fill="#FBBC05"
+                                        d="M4.49 10.75c-.16-.48-.25-.99-.25-1.52s.09-1.04.25-1.52V5.62H1.96A8 8 0 0 0 .98 9.23c0 1.25.37 2.42.98 3.42l2.53-1.9z" />
+                                    <path fill="#EA4335"
+                                        d="M8.98 3.58c1.18 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 8.98 0C5.43 0 2.42 2.17 1.96 5.62l2.53 1.9c.63-1.89 2.4-3.29 4.49-3.29z" />
+                                </svg>
+                                Google
+                            </button>
+                            <button type="button" class="social-btn apple-btn">
+                                <svg width="18" height="18" viewBox="0 0 18 18">
+                                    <path fill="currentColor"
+                                        d="M15.5 14.3c-.3.7-.7 1.3-1.1 1.8-.6.7-1.1 1.1-1.4 1.4-.5.5-1.1.7-1.7.7-.4 0-1-.1-1.6-.4s-1.1-.4-1.5-.4c-.5 0-1 .1-1.6.4-.6.3-1.1.4-1.6.4-.6 0-1.1-.3-1.7-.8-.4-.3-.9-.8-1.5-1.5C2.2 14.8 1.5 13.7 1 12.4c-.6-1.4-.9-2.7-.9-4 0-1.5.3-2.8.9-3.9.5-.9 1.1-1.6 1.9-2.1.8-.5 1.6-.8 2.5-.8.5 0 1.1.2 1.8.5.7.3 1.1.5 1.3.5.2 0 .7-.2 1.4-.5.7-.3 1.3-.4 1.9-.4 1.4 0 2.5.4 3.2 1.3-1.3.8-1.9 1.9-1.9 3.3 0 1.1.4 2 1.2 2.7.4.3.8.6 1.3.7-.1.4-.3.7-.4 1.1zM12.2 0c0 .9-.3 1.7-.9 2.4-.7.8-1.6 1.3-2.5 1.2-.1-.9.2-1.8.8-2.5.3-.4.7-.7 1.2-.9.5-.2.9-.3 1.4-.3v.1z" />
+                                </svg>
+                                Apple
+                            </button>
+                            <button type="button" class="social-btn facebook-btn">
+                                <svg width="18" height="18" viewBox="0 0 18 18">
+                                    <path fill="#1877F2"
+                                        d="M18 9a9 9 0 1 0-10.4 8.9V11.6H5.3V9h2.3V7c0-2.3 1.4-3.6 3.5-3.6 1 0 2.1.2 2.1.2v2.3h-1.2c-1.2 0-1.5.7-1.5 1.4V9h2.6l-.4 2.6H10.5v6.3A9 9 0 0 0 18 9z" />
+                                </svg>
+                                Facebook
+                            </button>
+                            <button type="button" class="social-btn microsoft-btn">
+                                <svg width="18" height="18" viewBox="0 0 18 18">
+                                    <path fill="#F25022" d="M0 0h8.5v8.5H0z" />
+                                    <path fill="#00A4EF" d="M9.5 0H18v8.5H9.5z" />
+                                    <path fill="#7FBA00" d="M0 9.5h8.5V18H0z" />
+                                    <path fill="#FFB900" d="M9.5 9.5H18V18H9.5z" />
+                                </svg>
+                                Microsoft
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <p>Don`t have an account? <button type="button" class="form-link"
+                                onclick="switchToLogin()">Register here</button>.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <p>© 2025 Expense Tracker. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- <script src="../static/scripts.js"></script> -->
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+    <script>
+        function switchToLogin(){
+            window.location.replace("/register");
+        }
+        window.addEventListener('popstate', () => {
+            // If user presses back from register page, go to main.html
+            window.location.href = "/";
+        });
+    </script>
+</body>
+</html>
